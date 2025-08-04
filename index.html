@@ -1,7 +1,8 @@
+// FacebookTikTokDashboard.jsx
 import React from 'react';
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-const FacebookTikTokCharts = () => {
+const FacebookTikTokDashboard = () => {
   // Daily Reach Data with Campaign Names
   const dailyReachData = [
     { 
@@ -128,6 +129,22 @@ const FacebookTikTokCharts = () => {
     { date: '1 Aug', Facebook: 1749, TikTok: 70 },
     { date: '2 Aug', Facebook: 1754, TikTok: 1875 },
     { date: '3 Aug', Facebook: 623, TikTok: 903 }
+  ];
+
+  // TikTok Detailed Data
+  const tiktokDetailedData = [
+    { date: '23 Jul 2025', reach: 189718, cost: 222.48, impressions: 227372, cpm: 0.98 },
+    { date: '24 Jul 2025', reach: 169518, cost: 207.40, impressions: 231154, cpm: 0.90 },
+    { date: '25 Jul 2025', reach: 317687, cost: 499.82, impressions: 492663, cpm: 1.01 },
+    { date: '26 Jul 2025', reach: 276789, cost: 541.52, impressions: 545562, cpm: 0.99 },
+    { date: '27 Jul 2025', reach: 134885, cost: 167.66, impressions: 190519, cpm: 0.88 },
+    { date: '28 Jul 2025', reach: 229243, cost: 350.69, impressions: 373045, cpm: 0.94 },
+    { date: '29 Jul 2025', reach: 166731, cost: 297.46, impressions: 224912, cpm: 1.32 },
+    { date: '30 Jul 2025', reach: 242475, cost: 408.07, impressions: 383416, cpm: 1.06 },
+    { date: '31 Jul 2025', reach: 179026, cost: 286.27, impressions: 264423, cpm: 1.08 },
+    { date: '1 Aug 2025', reach: 110470, cost: 70.00, impressions: 125044, cpm: 0.56 },
+    { date: '2 Aug 2025', reach: 1401876, cost: 1875.00, impressions: 2148336, cpm: 0.87 },
+    { date: '3 Aug 2025', reach: 346574, cost: 902.78, impressions: 764983, cpm: 1.18 }
   ];
 
   const COLORS = {
@@ -567,4 +584,4 @@ const FacebookTikTokCharts = () => {
   );
 };
 
-export default FacebookTikTokCharts;
+export default FacebookTikTokDashboard;
