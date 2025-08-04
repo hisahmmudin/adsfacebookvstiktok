@@ -1,587 +1,1375 @@
-// FacebookTikTokDashboard.jsx
-import React from 'react';
-import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
-const FacebookTikTokDashboard = () => {
-  // Daily Reach Data with Campaign Names
-  const dailyReachData = [
-    { 
-      date: '23 Jul', 
-      Facebook: 182342, 
-      TikTok: 189718,
-      fbCampaigns: ['FEEDBACK BOS ADIB (TOMAHAWK)', 'ABU MANU (MAT COFFEE)', 'MAT ALIF RAYA (CHICKEN)'],
-      tiktokCampaigns: ['REACH AGISHI (MCB)', 'REACH RODTANG OFFICIAL']
-    },
-    { 
-      date: '24 Jul', 
-      Facebook: 372287, 
-      TikTok: 169518,
-      fbCampaigns: ['BOS ADIB', 'ABU MANU', 'MAT ALIF RAYA'],
-      tiktokCampaigns: ['AWARENESS PESTA TOMAHAWK', 'AWARENESS MCB MC TOMAHA']
-    },
-    { 
-      date: '25 Jul', 
-      Facebook: 638368, 
-      TikTok: 317687,
-      fbCampaigns: ['BOS ADIB', 'FEEDBACK TOMAHAWK', 'ICA MENU ANGUS', 'DINA MAT COFFEE', 'ABU MANU', 'MAT ALIF RAYA'],
-      tiktokCampaigns: ['REACH 28JULAI', 'REACH MC/MCB/TOMAHAWK', 'REACH (MCB/MCB/TOMAHAWK)']
-    },
-    { 
-      date: '26 Jul', 
-      Facebook: 751153, 
-      TikTok: 276789,
-      fbCampaigns: ['BOS ADIB', 'FEEDBACK TOMAHAWK', 'ICA MENU ANGUS', 'DINA MAT COFFEE', 'ABU MANU', 'MAT ALIF RAYA'],
-      tiktokCampaigns: ['AWARENESS PESTA TOMAHAWK', 'REACH MC/MCB/TOMAHAWK', 'REACH (MCB/MCB/TOMAHAWK)']
-    },
-    { 
-      date: '27 Jul', 
-      Facebook: 379206, 
-      TikTok: 134885,
-      fbCampaigns: ['BOS ADIB', 'FEEDBACK TOMAHAWK', 'PIDA NASI LEMAK 4.90', 'ICA MENU ANGUS', 'DINA MAT COFFEE', 'ABU MANU', 'MAT ALIF RAYA'],
-      tiktokCampaigns: ['REACH MC/MCB/TOMAHAWK']
-    },
-    { 
-      date: '28 Jul', 
-      Facebook: 238910, 
-      TikTok: 229243,
-      fbCampaigns: ['UNA TOMAHAWK', 'ASYAH ARIFFIN MCD', 'ICA AGISHI MAT COFFEE', 'PIDA NASI LEMAK 4.90'],
-      tiktokCampaigns: ['REACH 28JULAI', 'REACH MC/MCB/TOMAHAWK']
-    },
-    { 
-      date: '29 Jul', 
-      Facebook: 234929, 
-      TikTok: 166731,
-      fbCampaigns: ['UNA TOMAHAWK', 'ASYAH ARIFFIN MCD', 'ICA AGISHI MAT COFFEE', 'PIDA NASI LEMAK 4.90'],
-      tiktokCampaigns: ['REACH 28JULAI']
-    },
-    { 
-      date: '30 Jul', 
-      Facebook: 316108, 
-      TikTok: 242475,
-      fbCampaigns: ['PIDA & AMIR TOMAHAWK', 'DINA TOMAHAWK', 'UNA MENU RM10', 'PIDA NASI LEMAK 4.90', 'DINA & REINA', 'ICA & AGISHI'],
-      tiktokCampaigns: ['AWARENESS MCB MC TOMAHA', 'REACH 28JULAI']
-    },
-    { 
-      date: '31 Jul', 
-      Facebook: 309014, 
-      TikTok: 179026,
-      fbCampaigns: ['PIDA & AMIR TOMAHAWK', 'DINA TOMAHAWK', 'UNA MENU RM10', 'PIDA NASI LEMAK 4.90', 'DINA & REINA', 'ICA & AGISHI'],
-      tiktokCampaigns: ['AWARENESS MCB MC TOMAHA']
-    },
-    { 
-      date: '1 Aug', 
-      Facebook: 1306272, 
-      TikTok: 110470,
-      fbCampaigns: ['10 AWARENESS TOMAHAWK', '10 AWARENESS PESTA TOMAHAWK', 'UNA TOMAHAWK PT AMIR', 'FEEDBACK TOMAHAWK (ANGGERI)', 'FEEDBACK BOS ADIB (TOMAHAWK)', 'REACH SAM TOMAHAWK', 'AWARENESS TOMAHAWK'],
-      tiktokCampaigns: ['AWARENESS PESTA TOMAHAWK', 'AWARENESS MCB MC TOMAHA']
-    },
-    { 
-      date: '2 Aug', 
-      Facebook: 1309371, 
-      TikTok: 1401876,
-      fbCampaigns: ['10 AWARENESS TOMAHAWK', '10 AWARENESS PESTA TOMAHAWK', 'UNA TOMAHAWK PT AMIR', 'FEEDBACK TOMAHAWK (ANGGERI)', 'FEEDBACK BOS ADIB (TOMAHAWK)', 'REACH SAM TOMAHAWK', 'AWARENESS TOMAHAWK'],
-      tiktokCampaigns: ['AWARENESS PESTA TOMAHAWK']
-    },
-    { 
-      date: '3 Aug', 
-      Facebook: 465139, 
-      TikTok: 346574,
-      fbCampaigns: ['15 AWARENESS TOMAHAWK', '10 AWARENESS PESTA TOMAHAWK', 'UNA TOMAHAWK PT AMIR', 'FEEDBACK TOMAHAWK (ANGGERI)', 'FEEDBACK BOS ADIB (TOMAHAWK)', 'REACH SAM TOMAHAWK', 'AWARENESS TOMAHAWK'],
-      tiktokCampaigns: ['AWARENESS PESTA TOMAHAWK']
-    }
-  ];
-
-  // Platform Comparison Data
-  const platformComparisonData = [
-    { 
-      platform: 'Facebook', 
-      reach: 5602099, 
-      cost: 7550, 
-      impressions: 5631558,
-      cpm: 1.34
-    },
-    { 
-      platform: 'TikTok', 
-      reach: 3864992, 
-      cost: 5950, 
-      impressions: 6171429,
-      cpm: 0.96
-    }
-  ];
-
-  // Budget Allocation
-  const budgetData = [
-    { name: 'Facebook', value: 7550, percentage: 56 },
-    { name: 'TikTok', value: 5950, percentage: 44 }
-  ];
-
-  // Daily Cost Data
-  const dailyCostData = [
-    { date: '23 Jul', Facebook: 628, TikTok: 222 },
-    { date: '24 Jul', Facebook: 621, TikTok: 207 },
-    { date: '25 Jul', Facebook: 854, TikTok: 500 },
-    { date: '26 Jul', Facebook: 1004, TikTok: 542 },
-    { date: '27 Jul', Facebook: 507, TikTok: 168 },
-    { date: '28 Jul', Facebook: 319, TikTok: 351 },
-    { date: '29 Jul', Facebook: 314, TikTok: 297 },
-    { date: '30 Jul', Facebook: 423, TikTok: 408 },
-    { date: '31 Jul', Facebook: 414, TikTok: 286 },
-    { date: '1 Aug', Facebook: 1749, TikTok: 70 },
-    { date: '2 Aug', Facebook: 1754, TikTok: 1875 },
-    { date: '3 Aug', Facebook: 623, TikTok: 903 }
-  ];
-
-  // TikTok Detailed Data
-  const tiktokDetailedData = [
-    { date: '23 Jul 2025', reach: 189718, cost: 222.48, impressions: 227372, cpm: 0.98 },
-    { date: '24 Jul 2025', reach: 169518, cost: 207.40, impressions: 231154, cpm: 0.90 },
-    { date: '25 Jul 2025', reach: 317687, cost: 499.82, impressions: 492663, cpm: 1.01 },
-    { date: '26 Jul 2025', reach: 276789, cost: 541.52, impressions: 545562, cpm: 0.99 },
-    { date: '27 Jul 2025', reach: 134885, cost: 167.66, impressions: 190519, cpm: 0.88 },
-    { date: '28 Jul 2025', reach: 229243, cost: 350.69, impressions: 373045, cpm: 0.94 },
-    { date: '29 Jul 2025', reach: 166731, cost: 297.46, impressions: 224912, cpm: 1.32 },
-    { date: '30 Jul 2025', reach: 242475, cost: 408.07, impressions: 383416, cpm: 1.06 },
-    { date: '31 Jul 2025', reach: 179026, cost: 286.27, impressions: 264423, cpm: 1.08 },
-    { date: '1 Aug 2025', reach: 110470, cost: 70.00, impressions: 125044, cpm: 0.56 },
-    { date: '2 Aug 2025', reach: 1401876, cost: 1875.00, impressions: 2148336, cpm: 0.87 },
-    { date: '3 Aug 2025', reach: 346574, cost: 902.78, impressions: 764983, cpm: 1.18 }
-  ];
-
-  const COLORS = {
-    Facebook: '#1877f2',
-    TikTok: '#fe2c55'
-  };
-
-  const pieColors = [COLORS.Facebook, COLORS.TikTok];
-
-  // Custom Tooltip for showing campaign names
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-      const data = dailyReachData.find(d => d.date === label);
-      return (
-        <div className="bg-white p-4 border border-gray-300 rounded-lg shadow-lg max-w-md">
-          <p className="font-semibold text-gray-800 mb-2">{`Date: ${label}`}</p>
-          {payload.map((entry, index) => (
-            <div key={index} className="mb-3">
-              <p className="font-medium" style={{ color: entry.color }}>
-                {`${entry.dataKey}: ${entry.value.toLocaleString()} reach`}
-              </p>
-              <div className="mt-1">
-                <p className="text-xs font-medium text-gray-600 mb-1">Active Campaigns:</p>
-                <div className="text-xs text-gray-700">
-                  {entry.dataKey === 'Facebook' ? (
-                    data?.fbCampaigns?.map((campaign, i) => (
-                      <div key={i} className="truncate">• {campaign}</div>
-                    ))
-                  ) : (
-                    data?.tiktokCampaigns?.map((campaign, i) => (
-                      <div key={i} className="truncate">• {campaign}</div>
-                    ))
-                  )}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook vs TikTok Performance Analysis</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 24px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            color: rgb(31, 41, 55);
+            margin-bottom: 8px;
+        }
+        
+        /* Main Dashboard */
+        .dashboard {
+            background: linear-gradient(135deg, rgb(30, 64, 175) 0%, rgb(91, 33, 182) 50%, rgb(219, 39, 119) 100%);
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            padding: 32px;
+            margin-bottom: 32px;
+            color: white;
+        }
+        
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .dashboard-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .dashboard-subtitle {
+            font-size: 1.125rem;
+            opacity: 0.9;
+        }
+        
+        /* Main KPIs */
+        .kpi-grid {
+            display: grid;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        
+        @media (min-width: 768px) {
+            .kpi-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .kpi-card {
+            background: rgba(255, 255, 255, 0.1);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .kpi-icon {
+            font-size: 3rem;
+            margin-bottom: 8px;
+        }
+        
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: rgb(254, 240, 138);
+            margin-bottom: 8px;
+        }
+        
+        .kpi-label {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+        
+        .kpi-sublabel {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+        
+        /* Platform Cards */
+        .platform-grid {
+            display: grid;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        
+        @media (min-width: 1024px) {
+            .platform-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .platform-card {
+            border-radius: 12px;
+            padding: 24px;
+            border: 2px solid;
+        }
+        
+        .facebook-card {
+            background: linear-gradient(135deg, rgb(37, 99, 235) 0%, rgb(29, 78, 216) 100%);
+            border-color: rgb(96, 165, 250);
+        }
+        
+        .tiktok-card {
+            background: linear-gradient(135deg, rgb(236, 72, 153) 0%, rgb(190, 24, 93) 100%);
+            border-color: rgb(251, 113, 133);
+        }
+        
+        .platform-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        
+        .platform-title {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .platform-badge {
+            background: rgb(96, 165, 250);
+            color: rgb(30, 64, 175);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: bold;
+        }
+        
+        .tiktok-card .platform-badge {
+            background: rgb(251, 113, 133);
+            color: rgb(190, 24, 93);
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .metric-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: rgb(239, 246, 255);
+        }
+        
+        .tiktok-card .metric-value {
+            color: rgb(253, 242, 248);
+        }
+        
+        .metric-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .metric-sub {
+            font-size: 2rem;
+            font-weight: bold;
+            color: rgb(191, 219, 254);
+        }
+        
+        .tiktok-card .metric-sub {
+            color: rgb(252, 165, 208);
+        }
+        
+        .platform-footer {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgb(96, 165, 250);
+        }
+        
+        .tiktok-card .platform-footer {
+            border-top-color: rgb(251, 113, 133);
+        }
+        
+        .footer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-row:not(:last-child) {
+            margin-bottom: 8px;
+        }
+        
+        .footer-label {
+            font-size: 0.875rem;
+        }
+        
+        .footer-value {
+            font-weight: bold;
+        }
+        
+        .performance-badge {
+            font-weight: bold;
+            color: rgb(34, 197, 94);
+        }
+        
+        /* Quick Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 32px;
+        }
+        
+        @media (min-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+        
+        /* Content Sections */
+        .section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: rgb(55, 65, 81);
+            margin-bottom: 16px;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin-bottom: 8px;
+        }
+        
+        .chart-description {
+            font-size: 0.875rem;
+            color: rgb(107, 114, 126);
+            margin-top: 8px;
+        }
+        
+        /* Campaign Timeline Table */
+        .table-container {
+            overflow-x: auto;
+        }
+        
+        .campaign-table {
+            min-width: 100%;
+            table-layout: auto;
+        }
+        
+        .table-header {
+            background: rgb(249, 250, 251);
+        }
+        
+        .table-header th {
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: rgb(107, 114, 126);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .table-row {
+            background: white;
+            border-bottom: 1px solid rgb(229, 231, 235);
+        }
+        
+        .table-row:nth-child(even) {
+            background: rgb(249, 250, 251);
+        }
+        
+        .table-cell {
+            padding: 16px;
+            font-size: 0.875rem;
+            color: rgb(55, 65, 81);
+        }
+        
+        .date-cell {
+            font-weight: 500;
+            color: rgb(17, 24, 39);
+            white-space: nowrap;
+        }
+        
+        .campaigns-cell {
+            max-width: 300px;
+        }
+        
+        .campaign-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+        
+        .campaign-tag {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .fb-tag {
+            background: rgb(239, 246, 255);
+            color: rgb(29, 78, 216);
+        }
+        
+        .tiktok-tag {
+            background: rgb(253, 242, 248);
+            color: rgb(190, 24, 93);
+        }
+        
+        .reach-cell {
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .fb-reach {
+            color: rgb(37, 99, 235);
+        }
+        
+        .tiktok-reach {
+            color: rgb(236, 72, 153);
+        }
+        
+        /* Platform Comparison Charts */
+        .comparison-grid {
+            display: grid;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        
+        @media (min-width: 1024px) {
+            .comparison-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Budget and Metrics Grid */
+        .budget-metrics-grid {
+            display: grid;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        
+        @media (min-width: 1024px) {
+            .budget-metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .metrics-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .metric-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            border-radius: 4px;
+        }
+        
+        .metric-item.blue {
+            background: rgb(239, 246, 255);
+        }
+        
+        .metric-item.green {
+            background: rgb(240, 253, 244);
+        }
+        
+        .metric-item.purple {
+            background: rgb(245, 243, 255);
+        }
+        
+        .metric-item.orange {
+            background: rgb(255, 247, 237);
+        }
+        
+        .metric-item-label {
+            font-weight: 500;
+        }
+        
+        .metric-item.blue .metric-item-label {
+            color: rgb(29, 78, 216);
+        }
+        
+        .metric-item.green .metric-item-label {
+            color: rgb(21, 128, 61);
+        }
+        
+        .metric-item.purple .metric-item-label {
+            color: rgb(109, 40, 217);
+        }
+        
+        .metric-item.orange .metric-item-label {
+            color: rgb(194, 65, 12);
+        }
+        
+        .metric-item-value {
+            font-weight: bold;
+        }
+        
+        .metric-item.blue .metric-item-value {
+            color: rgb(30, 64, 175);
+        }
+        
+        .metric-item.green .metric-item-value {
+            color: rgb(22, 101, 52);
+        }
+        
+        .metric-item.purple .metric-item-value {
+            color: rgb(88, 28, 135);
+        }
+        
+        .metric-item.orange .metric-item-value {
+            color: rgb(154, 52, 18);
+        }
+        
+        /* Summary Cards */
+        .summary-grid {
+            display: grid;
+            gap: 24px;
+            margin-top: 32px;
+        }
+        
+        @media (min-width: 768px) {
+            .summary-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .summary-card {
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            color: white;
+        }
+        
+        .volume-card {
+            background: linear-gradient(135deg, rgb(59, 130, 246) 0%, rgb(30, 64, 175) 100%);
+        }
+        
+        .efficiency-card {
+            background: linear-gradient(135deg, rgb(236, 72, 153) 0%, rgb(190, 24, 93) 100%);
+        }
+        
+        .viral-card {
+            background: linear-gradient(135deg, rgb(16, 185, 129) 0%, rgb(4, 120, 87) 100%);
+        }
+        
+        .summary-card h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .summary-card .card-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .summary-card .card-subtitle {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+        
+        /* Tooltip Styles */
+        .tooltip {
+            position: absolute;
+            background: white;
+            border: 1px solid rgb(209, 213, 219);
+            border-radius: 8px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            padding: 16px;
+            max-width: 300px;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .tooltip-title {
+            font-weight: 600;
+            color: rgb(31, 41, 55);
+            margin-bottom: 8px;
+        }
+        
+        .tooltip-content {
+            font-size: 0.875rem;
+            color: rgb(55, 65, 81);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .dashboard-title {
+                font-size: 2rem;
+            }
+            
+            .platform-title {
+                font-size: 1.5rem;
+            }
+            
+            .metric-value {
+                font-size: 2rem;
+            }
+            
+            .campaigns-cell {
+                max-width: 200px;
+            }
+            
+            .campaign-tags {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📊 Facebook vs TikTok Performance Analysis</h1>
+        </div>
+        
+        <!-- Main Dashboard -->
+        <div class="dashboard">
+            <div class="dashboard-header">
+                <h2 class="dashboard-title">CAMPAIGN DASHBOARD</h2>
+                <p class="dashboard-subtitle">23 July - 3 August 2025</p>
+            </div>
+            
+            <!-- Main KPIs -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-icon">🎯</div>
+                    <h3 class="kpi-value">9,467,091</h3>
+                    <p class="kpi-label">TOTAL REACH</p>
+                    <p class="kpi-sublabel">Combined Platforms</p>
                 </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      );
-    }
-    return null;
-  };
-
-  return (
-    <div className="w-full p-6 bg-gray-50">
-      <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
-        📊 Facebook vs TikTok Performance Analysis
-      </h1>
-      
-      {/* MAIN DASHBOARD */}
-      <div className="bg-gradient-to-br from-blue-900 via-purple-900 to-pink-900 rounded-2xl shadow-2xl p-8 mb-8 text-white">
-        <div className="text-center mb-8">
-          <h2 className="text-4xl font-bold mb-2">CAMPAIGN DASHBOARD</h2>
-          <p className="text-lg opacity-90">23 July - 3 August 2025</p>
-        </div>
-        
-        {/* Main KPIs */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center border border-white/20">
-            <div className="text-3xl mb-2">🎯</div>
-            <h3 className="text-2xl font-bold text-yellow-300">9,467,091</h3>
-            <p className="text-lg font-semibold">TOTAL REACH</p>
-            <p className="text-sm opacity-80">Combined Platforms</p>
-          </div>
-          
-          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center border border-white/20">
-            <div className="text-3xl mb-2">💰</div>
-            <h3 className="text-2xl font-bold text-green-300">RM 13,500</h3>
-            <p className="text-lg font-semibold">TOTAL BUDGET</p>
-            <p className="text-sm opacity-80">12 Days Campaign</p>
-          </div>
-          
-          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center border border-white/20">
-            <div className="text-3xl mb-2">📈</div>
-            <h3 className="text-2xl font-bold text-blue-300">RM 1.43</h3>
-            <p className="text-lg font-semibold">AVG CPM</p>
-            <p className="text-sm opacity-80">Cost Per 1000 Reach</p>
-          </div>
-        </div>
-        
-        {/* Platform Breakdown */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Facebook Card */}
-          <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl p-6 border-2 border-blue-400">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-2xl font-bold">📘 FACEBOOK</h3>
-              <span className="bg-blue-400 text-blue-900 px-3 py-1 rounded-full text-sm font-bold">56%</span>
+                
+                <div class="kpi-card">
+                    <div class="kpi-icon">💰</div>
+                    <h3 class="kpi-value">RM 13,500</h3>
+                    <p class="kpi-label">TOTAL BUDGET</p>
+                    <p class="kpi-sublabel">12 Days Campaign</p>
+                </div>
+                
+                <div class="kpi-card">
+                    <div class="kpi-icon">📈</div>
+                    <h3 class="kpi-value">RM 1.43</h3>
+                    <p class="kpi-label">AVG CPM</p>
+                    <p class="kpi-sublabel">Cost Per 1000 Reach</p>
+                </div>
             </div>
             
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="text-3xl font-bold text-blue-100">5.60M</p>
-                <p className="text-sm font-medium">Total Reach</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-blue-100">RM 7,550</p>
-                <p className="text-sm font-medium">Total Spend</p>
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-blue-200">5.63M</p>
-                <p className="text-sm">Impressions</p>
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-blue-200">RM 1.34</p>
-                <p className="text-sm">CPM</p>
-              </div>
-            </div>
-            
-            <div className="mt-4 pt-4 border-t border-blue-400">
-              <div className="flex justify-between items-center">
-                <span className="text-sm">Peak Day:</span>
-                <span className="font-bold">2 Aug - 1.31M reach</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm">Performance:</span>
-                <span className="font-bold text-green-300">Volume Leader 🏆</span>
-              </div>
-            </div>
-          </div>
-          
-          {/* TikTok Card */}
-          <div className="bg-gradient-to-br from-pink-600 to-red-700 rounded-xl p-6 border-2 border-pink-400">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-2xl font-bold">🎵 TIKTOK</h3>
-              <span className="bg-pink-400 text-pink-900 px-3 py-1 rounded-full text-sm font-bold">44%</span>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="text-3xl font-bold text-pink-100">3.86M</p>
-                <p className="text-sm font-medium">Total Reach</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-pink-100">RM 5,950</p>
-                <p className="text-sm font-medium">Total Spend</p>
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-pink-200">6.17M</p>
-                <p className="text-sm">Impressions</p>
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-pink-200">RM 0.96</p>
-                <p className="text-sm">CPM</p>
-              </div>
-            </div>
-            
-            <div className="mt-4 pt-4 border-t border-pink-400">
-              <div className="flex justify-between items-center">
-                <span className="text-sm">Peak Day:</span>
-                <span className="font-bold">2 Aug - 1.40M reach</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm">Performance:</span>
-                <span className="font-bold text-green-300">Efficiency King ⚡</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Quick Stats Bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-          <div className="bg-white/10 rounded-lg p-4 text-center">
-            <p className="text-2xl font-bold">11.80M</p>
-            <p className="text-xs opacity-80">Total Impressions</p>
-          </div>
-          <div className="bg-white/10 rounded-lg p-4 text-center">
-            <p className="text-2xl font-bold">2.71M</p>
-            <p className="text-xs opacity-80">Peak Day Reach</p>
-          </div>
-          <div className="bg-white/10 rounded-lg p-4 text-center">
-            <p className="text-2xl font-bold">28%</p>
-            <p className="text-xs opacity-80">TikTok CPM Advantage</p>
-          </div>
-          <div className="bg-white/10 rounded-lg p-4 text-center">
-            <p className="text-2xl font-bold">12</p>
-            <p className="text-xs opacity-80">Campaign Days</p>
-          </div>
-        </div>
-      </div>
-      
-      {/* Daily Reach Comparison */}
-      <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-700">Daily Reach Performance with Campaign Details</h2>
-        <ResponsiveContainer width="100%" height={400}>
-          <LineChart data={dailyReachData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
-            <YAxis tickFormatter={(value) => `${(value / 1000).toFixed(0)}K`} />
-            <Tooltip content={<CustomTooltip />} />
-            <Legend />
-            <Line 
-              type="monotone" 
-              dataKey="Facebook" 
-              stroke={COLORS.Facebook} 
-              strokeWidth={3}
-              dot={{ fill: COLORS.Facebook, strokeWidth: 2, r: 6 }}
-            />
-            <Line 
-              type="monotone" 
-              dataKey="TikTok" 
-              stroke={COLORS.TikTok} 
-              strokeWidth={3}
-              dot={{ fill: COLORS.TikTok, strokeWidth: 2, r: 6 }}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-        <p className="text-sm text-gray-600 mt-2">
-          🔥 <strong>Peak Days:</strong> Facebook hit 1.3M on Aug 1-2, TikTok went viral with 1.4M on Aug 2
-          <br />
-          💡 <strong>Hover over points</strong> to see active campaigns for each date
-        </p>
-      </div>
-
-      {/* Campaign Timeline Table */}
-      <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-700">Campaign Timeline & Active Campaigns</h2>
-        <div className="overflow-x-auto">
-          <table className="min-w-full table-auto">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Facebook Campaigns</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">TikTok Campaigns</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">FB Reach</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">TikTok Reach</th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {dailyReachData.map((day, index) => (
-                <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
-                  <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {day.date}
-                  </td>
-                  <td className="px-4 py-4 text-xs text-gray-700 max-w-xs">
-                    <div className="space-y-1">
-                      {day.fbCampaigns?.map((campaign, i) => (
-                        <div key={i} className="bg-blue-50 px-2 py-1 rounded text-blue-800 text-xs">
-                          {campaign}
-                        </div>
-                      ))}
+            <!-- Platform Cards -->
+            <div class="platform-grid">
+                <!-- Facebook Card -->
+                <div class="platform-card facebook-card">
+                    <div class="platform-header">
+                        <h3 class="platform-title">📘 FACEBOOK</h3>
+                        <span class="platform-badge">56%</span>
                     </div>
-                  </td>
-                  <td className="px-4 py-4 text-xs text-gray-700 max-w-xs">
-                    <div className="space-y-1">
-                      {day.tiktokCampaigns?.map((campaign, i) => (
-                        <div key={i} className="bg-pink-50 px-2 py-1 rounded text-pink-800 text-xs">
-                          {campaign}
+                    
+                    <div class="metrics-grid">
+                        <div>
+                            <p class="metric-value">5.60M</p>
+                            <p class="metric-label">Total Reach</p>
                         </div>
-                      ))}
+                        <div>
+                            <p class="metric-value">RM 7,550</p>
+                            <p class="metric-label">Total Spend</p>
+                        </div>
+                        <div>
+                            <p class="metric-sub">5.63M</p>
+                            <p class="metric-label">Impressions</p>
+                        </div>
+                        <div>
+                            <p class="metric-sub">RM 1.34</p>
+                            <p class="metric-label">CPM</p>
+                        </div>
                     </div>
-                  </td>
-                  <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                    <span className="text-blue-600">{day.Facebook.toLocaleString()}</span>
-                  </td>
-                  <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                    <span className="text-pink-600">{day.TikTok.toLocaleString()}</span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {/* Platform Comparison Bars */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        {/* Total Reach */}
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <h3 className="text-xl font-semibold mb-4 text-gray-700">Total Reach Comparison</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={platformComparisonData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="platform" />
-              <YAxis tickFormatter={(value) => `${(value / 1000000).toFixed(1)}M`} />
-              <Tooltip formatter={(value) => [`${value.toLocaleString()}`, 'Reach']} />
-              <Bar dataKey="reach" fill="#8884d8">
-                {platformComparisonData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.platform === 'Facebook' ? COLORS.Facebook : COLORS.TikTok} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-          <p className="text-sm text-gray-600 mt-2">
-            📘 Facebook: 5.6M reach | 🎵 TikTok: 3.9M reach
-          </p>
-        </div>
-
-        {/* Total Cost */}
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <h3 className="text-xl font-semibold mb-4 text-gray-700">Total Cost Comparison</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={platformComparisonData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="platform" />
-              <YAxis tickFormatter={(value) => `RM ${value}`} />
-              <Tooltip formatter={(value) => [`RM ${value.toLocaleString()}`, 'Cost']} />
-              <Bar dataKey="cost" fill="#82ca9d">
-                {platformComparisonData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.platform === 'Facebook' ? COLORS.Facebook : COLORS.TikTok} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-          <p className="text-sm text-gray-600 mt-2">
-            💰 Facebook: RM 7,550 | TikTok: RM 5,950
-          </p>
-        </div>
-      </div>
-
-      {/* CPM Comparison */}
-      <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-        <h3 className="text-xl font-semibold mb-4 text-gray-700">CPM Efficiency Comparison</h3>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={platformComparisonData} layout="horizontal">
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis type="number" tickFormatter={(value) => `RM ${value}`} />
-            <YAxis type="category" dataKey="platform" />
-            <Tooltip formatter={(value) => [`RM ${value}`, 'CPM']} />
-            <Bar dataKey="cpm" fill="#ffc658">
-              {platformComparisonData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.platform === 'Facebook' ? COLORS.Facebook : COLORS.TikTok} />
-              ))}
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-        <p className="text-sm text-gray-600 mt-2">
-          🎯 <strong>Winner:</strong> TikTok with RM 0.96 CPM vs Facebook RM 1.34 CPM (28% better)
-        </p>
-      </div>
-
-      {/* Budget Allocation */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <h3 className="text-xl font-semibold mb-4 text-gray-700">Budget Allocation</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={budgetData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={({ name, percentage }) => `${name}: ${percentage}%`}
-                outerRadius={80}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {budgetData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={pieColors[index % pieColors.length]} />
-                ))}
-              </Pie>
-              <Tooltip formatter={(value) => [`RM ${value.toLocaleString()}`, 'Budget']} />
-            </PieChart>
-          </ResponsiveContainer>
-          <div className="text-center text-sm text-gray-600 mt-2">
-            <p><strong>Total Budget:</strong> RM 13,500</p>
-            <p>Facebook: 56% | TikTok: 44%</p>
-          </div>
-        </div>
-
-        {/* Key Metrics Summary */}
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <h3 className="text-xl font-semibold mb-4 text-gray-700">Key Performance Metrics</h3>
-          <div className="space-y-4">
-            <div className="flex justify-between items-center p-3 bg-blue-50 rounded">
-              <span className="font-medium text-blue-700">Total Reach</span>
-              <span className="font-bold text-blue-800">9.47M</span>
+                    
+                    <div class="platform-footer">
+                        <div class="footer-row">
+                            <span class="footer-label">Peak Day:</span>
+                            <span class="footer-value">2 Aug - 1.31M reach</span>
+                        </div>
+                        <div class="footer-row">
+                            <span class="footer-label">Performance:</span>
+                            <span class="footer-value performance-badge">Volume Leader 🏆</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- TikTok Card -->
+                <div class="platform-card tiktok-card">
+                    <div class="platform-header">
+                        <h3 class="platform-title">🎵 TIKTOK</h3>
+                        <span class="platform-badge">44%</span>
+                    </div>
+                    
+                    <div class="metrics-grid">
+                        <div>
+                            <p class="metric-value">3.86M</p>
+                            <p class="metric-label">Total Reach</p>
+                        </div>
+                        <div>
+                            <p class="metric-value">RM 5,950</p>
+                            <p class="metric-label">Total Spend</p>
+                        </div>
+                        <div>
+                            <p class="metric-sub">6.17M</p>
+                            <p class="metric-label">Impressions</p>
+                        </div>
+                        <div>
+                            <p class="metric-sub">RM 0.96</p>
+                            <p class="metric-label">CPM</p>
+                        </div>
+                    </div>
+                    
+                    <div class="platform-footer">
+                        <div class="footer-row">
+                            <span class="footer-label">Peak Day:</span>
+                            <span class="footer-value">2 Aug - 1.40M reach</span>
+                        </div>
+                        <div class="footer-row">
+                            <span class="footer-label">Performance:</span>
+                            <span class="footer-value performance-badge">Efficiency King ⚡</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className="flex justify-between items-center p-3 bg-green-50 rounded">
-              <span className="font-medium text-green-700">Total Impressions</span>
-              <span className="font-bold text-green-800">11.80M</span>
+            
+            <!-- Quick Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <p class="stat-value">11.80M</p>
+                    <p class="stat-label">Total Impressions</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-value">2.71M</p>
+                    <p class="stat-label">Peak Day Reach</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-value">28%</p>
+                    <p class="stat-label">TikTok CPM Advantage</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-value">12</p>
+                    <p class="stat-label">Campaign Days</p>
+                </div>
             </div>
-            <div className="flex justify-between items-center p-3 bg-purple-50 rounded">
-              <span className="font-medium text-purple-700">Average CPM</span>
-              <span className="font-bold text-purple-800">RM 1.14</span>
+        </div>
+        
+        <!-- Daily Reach Performance -->
+        <div class="section">
+            <h2 class="section-title">Daily Reach Performance with Campaign Details</h2>
+            <div class="chart-container">
+                <canvas id="reachChart"></canvas>
             </div>
-            <div className="flex justify-between items-center p-3 bg-orange-50 rounded">
-              <span className="font-medium text-orange-700">Cost per Reach</span>
-              <span className="font-bold text-orange-800">RM 0.00143</span>
+            <p class="chart-description">
+                🔥 <strong>Peak Days:</strong> Facebook hit 1.3M on Aug 1-2, TikTok went viral with 1.4M on Aug 2<br>
+                💡 <strong>Click on chart points</strong> to see detailed campaign information
+            </p>
+        </div>
+        
+        <!-- Campaign Timeline Table -->
+        <div class="section">
+            <h2 class="section-title">Campaign Timeline & Active Campaigns</h2>
+            <div class="table-container">
+                <table class="campaign-table">
+                    <thead class="table-header">
+                        <tr>
+                            <th>Date</th>
+                            <th>Facebook Campaigns</th>
+                            <th>TikTok Campaigns</th>
+                            <th>FB Reach</th>
+                            <th>TikTok Reach</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-row">
+                            <td class="table-cell date-cell">23 Jul</td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag fb-tag">FEEDBACK BOS ADIB (TOMAHAWK)</span>
+                                    <span class="campaign-tag fb-tag">ABU MANU (MAT COFFEE)</span>
+                                    <span class="campaign-tag fb-tag">MAT ALIF RAYA (CHICKEN)</span>
+                                </div>
+                            </td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag tiktok-tag">REACH AGISHI (MCB)</span>
+                                    <span class="campaign-tag tiktok-tag">REACH RODTANG OFFICIAL</span>
+                                </div>
+                            </td>
+                            <td class="table-cell reach-cell fb-reach">182,342</td>
+                            <td class="table-cell reach-cell tiktok-reach">189,718</td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="table-cell date-cell">24 Jul</td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag fb-tag">BOS ADIB</span>
+                                    <span class="campaign-tag fb-tag">ABU MANU</span>
+                                    <span class="campaign-tag fb-tag">MAT ALIF RAYA</span>
+                                </div>
+                            </td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag tiktok-tag">AWARENESS PESTA TOMAHAWK</span>
+                                    <span class="campaign-tag tiktok-tag">AWARENESS MCB MC TOMAHA</span>
+                                </div>
+                            </td>
+                            <td class="table-cell reach-cell fb-reach">372,287</td>
+                            <td class="table-cell reach-cell tiktok-reach">169,518</td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="table-cell date-cell">25 Jul</td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag fb-tag">BOS ADIB</span>
+                                    <span class="campaign-tag fb-tag">FEEDBACK TOMAHAWK</span>
+                                    <span class="campaign-tag fb-tag">ICA MENU ANGUS</span>
+                                    <span class="campaign-tag fb-tag">DINA MAT COFFEE</span>
+                                    <span class="campaign-tag fb-tag">ABU MANU</span>
+                                    <span class="campaign-tag fb-tag">MAT ALIF RAYA</span>
+                                </div>
+                            </td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag tiktok-tag">REACH 28JULAI</span>
+                                    <span class="campaign-tag tiktok-tag">REACH MC/MCB/TOMAHAWK</span>
+                                    <span class="campaign-tag tiktok-tag">REACH (MCB/MCB/TOMAHAWK)</span>
+                                </div>
+                            </td>
+                            <td class="table-cell reach-cell fb-reach">638,368</td>
+                            <td class="table-cell reach-cell tiktok-reach">317,687</td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="table-cell date-cell">26 Jul</td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag fb-tag">BOS ADIB</span>
+                                    <span class="campaign-tag fb-tag">FEEDBACK TOMAHAWK</span>
+                                    <span class="campaign-tag fb-tag">ICA MENU ANGUS</span>
+                                    <span class="campaign-tag fb-tag">DINA MAT COFFEE</span>
+                                    <span class="campaign-tag fb-tag">ABU MANU</span>
+                                    <span class="campaign-tag fb-tag">MAT ALIF RAYA</span>
+                                </div>
+                            </td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag tiktok-tag">AWARENESS PESTA TOMAHAWK</span>
+                                    <span class="campaign-tag tiktok-tag">REACH MC/MCB/TOMAHAWK</span>
+                                    <span class="campaign-tag tiktok-tag">REACH (MCB/MCB/TOMAHAWK)</span>
+                                </div>
+                            </td>
+                            <td class="table-cell reach-cell fb-reach">751,153</td>
+                            <td class="table-cell reach-cell tiktok-reach">276,789</td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="table-cell date-cell">27 Jul</td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag fb-tag">BOS ADIB</span>
+                                    <span class="campaign-tag fb-tag">FEEDBACK TOMAHAWK</span>
+                                    <span class="campaign-tag fb-tag">PIDA NASI LEMAK 4.90</span>
+                                    <span class="campaign-tag fb-tag">ICA MENU ANGUS</span>
+                                    <span class="campaign-tag fb-tag">DINA MAT COFFEE</span>
+                                    <span class="campaign-tag fb-tag">ABU MANU</span>
+                                    <span class="campaign-tag fb-tag">MAT ALIF RAYA</span>
+                                </div>
+                            </td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag tiktok-tag">REACH MC/MCB/TOMAHAWK</span>
+                                </div>
+                            </td>
+                            <td class="table-cell reach-cell fb-reach">379,206</td>
+                            <td class="table-cell reach-cell tiktok-reach">134,885</td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="table-cell date-cell">28 Jul</td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag fb-tag">UNA TOMAHAWK</span>
+                                    <span class="campaign-tag fb-tag">ASYAH ARIFFIN MCD</span>
+                                    <span class="campaign-tag fb-tag">ICA AGISHI MAT COFFEE</span>
+                                    <span class="campaign-tag fb-tag">PIDA NASI LEMAK 4.90</span>
+                                </div>
+                            </td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag tiktok-tag">REACH 28JULAI</span>
+                                    <span class="campaign-tag tiktok-tag">REACH MC/MCB/TOMAHAWK</span>
+                                </div>
+                            </td>
+                            <td class="table-cell reach-cell fb-reach">238,910</td>
+                            <td class="table-cell reach-cell tiktok-reach">229,243</td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="table-cell date-cell">29 Jul</td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag fb-tag">UNA TOMAHAWK</span>
+                                    <span class="campaign-tag fb-tag">ASYAH ARIFFIN MCD</span>
+                                    <span class="campaign-tag fb-tag">ICA AGISHI MAT COFFEE</span>
+                                    <span class="campaign-tag fb-tag">PIDA NASI LEMAK 4.90</span>
+                                </div>
+                            </td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag tiktok-tag">REACH 28JULAI</span>
+                                </div>
+                            </td>
+                            <td class="table-cell reach-cell fb-reach">234,929</td>
+                            <td class="table-cell reach-cell tiktok-reach">166,731</td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="table-cell date-cell">30 Jul</td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag fb-tag">PIDA & AMIR TOMAHAWK</span>
+                                    <span class="campaign-tag fb-tag">DINA TOMAHAWK</span>
+                                    <span class="campaign-tag fb-tag">UNA MENU RM10</span>
+                                    <span class="campaign-tag fb-tag">PIDA NASI LEMAK 4.90</span>
+                                    <span class="campaign-tag fb-tag">DINA & REINA</span>
+                                    <span class="campaign-tag fb-tag">ICA & AGISHI</span>
+                                </div>
+                            </td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag tiktok-tag">AWARENESS MCB MC TOMAHA</span>
+                                    <span class="campaign-tag tiktok-tag">REACH 28JULAI</span>
+                                </div>
+                            </td>
+                            <td class="table-cell reach-cell fb-reach">316,108</td>
+                            <td class="table-cell reach-cell tiktok-reach">242,475</td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="table-cell date-cell">31 Jul</td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag fb-tag">PIDA & AMIR TOMAHAWK</span>
+                                    <span class="campaign-tag fb-tag">DINA TOMAHAWK</span>
+                                    <span class="campaign-tag fb-tag">UNA MENU RM10</span>
+                                    <span class="campaign-tag fb-tag">PIDA NASI LEMAK 4.90</span>
+                                    <span class="campaign-tag fb-tag">DINA & REINA</span>
+                                    <span class="campaign-tag fb-tag">ICA & AGISHI</span>
+                                </div>
+                            </td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag tiktok-tag">AWARENESS MCB MC TOMAHA</span>
+                                </div>
+                            </td>
+                            <td class="table-cell reach-cell fb-reach">309,014</td>
+                            <td class="table-cell reach-cell tiktok-reach">179,026</td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="table-cell date-cell">1 Aug</td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag fb-tag">10 AWARENESS TOMAHAWK</span>
+                                    <span class="campaign-tag fb-tag">10 AWARENESS PESTA TOMAHAWK</span>
+                                    <span class="campaign-tag fb-tag">UNA TOMAHAWK PT AMIR</span>
+                                    <span class="campaign-tag fb-tag">FEEDBACK TOMAHAWK (ANGGERI)</span>
+                                    <span class="campaign-tag fb-tag">FEEDBACK BOS ADIB (TOMAHAWK)</span>
+                                    <span class="campaign-tag fb-tag">REACH SAM TOMAHAWK</span>
+                                    <span class="campaign-tag fb-tag">AWARENESS TOMAHAWK</span>
+                                </div>
+                            </td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag tiktok-tag">AWARENESS PESTA TOMAHAWK</span>
+                                    <span class="campaign-tag tiktok-tag">AWARENESS MCB MC TOMAHA</span>
+                                </div>
+                            </td>
+                            <td class="table-cell reach-cell fb-reach">1,306,272</td>
+                            <td class="table-cell reach-cell tiktok-reach">110,470</td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="table-cell date-cell">2 Aug</td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag fb-tag">10 AWARENESS TOMAHAWK</span>
+                                    <span class="campaign-tag fb-tag">10 AWARENESS PESTA TOMAHAWK</span>
+                                    <span class="campaign-tag fb-tag">UNA TOMAHAWK PT AMIR</span>
+                                    <span class="campaign-tag fb-tag">FEEDBACK TOMAHAWK (ANGGERI)</span>
+                                    <span class="campaign-tag fb-tag">FEEDBACK BOS ADIB (TOMAHAWK)</span>
+                                    <span class="campaign-tag fb-tag">REACH SAM TOMAHAWK</span>
+                                    <span class="campaign-tag fb-tag">AWARENESS TOMAHAWK</span>
+                                </div>
+                            </td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag tiktok-tag">AWARENESS PESTA TOMAHAWK 🚀</span>
+                                </div>
+                            </td>
+                            <td class="table-cell reach-cell fb-reach">1,309,371</td>
+                            <td class="table-cell reach-cell tiktok-reach">1,401,876</td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="table-cell date-cell">3 Aug</td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag fb-tag">15 AWARENESS TOMAHAWK</span>
+                                    <span class="campaign-tag fb-tag">10 AWARENESS PESTA TOMAHAWK</span>
+                                    <span class="campaign-tag fb-tag">UNA TOMAHAWK PT AMIR</span>
+                                    <span class="campaign-tag fb-tag">FEEDBACK TOMAHAWK (ANGGERI)</span>
+                                    <span class="campaign-tag fb-tag">FEEDBACK BOS ADIB (TOMAHAWK)</span>
+                                    <span class="campaign-tag fb-tag">REACH SAM TOMAHAWK</span>
+                                    <span class="campaign-tag fb-tag">AWARENESS TOMAHAWK</span>
+                                </div>
+                            </td>
+                            <td class="table-cell campaigns-cell">
+                                <div class="campaign-tags">
+                                    <span class="campaign-tag tiktok-tag">AWARENESS PESTA TOMAHAWK</span>
+                                </div>
+                            </td>
+                            <td class="table-cell reach-cell fb-reach">465,139</td>
+                            <td class="table-cell reach-cell tiktok-reach">346,574</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-          </div>
         </div>
-      </div>
-
-      {/* Daily Cost Trend */}
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <h3 className="text-xl font-semibold mb-4 text-gray-700">Daily Cost Trends</h3>
-        <ResponsiveContainer width="100%" height={400}>
-          <LineChart data={dailyCostData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
-            <YAxis tickFormatter={(value) => `RM ${value}`} />
-            <Tooltip 
-              formatter={(value, name) => [`RM ${value}`, name]}
-              labelFormatter={(label) => `Date: ${label}`}
-            />
-            <Legend />
-            <Line 
-              type="monotone" 
-              dataKey="Facebook" 
-              stroke={COLORS.Facebook} 
-              strokeWidth={2}
-              dot={{ fill: COLORS.Facebook, strokeWidth: 2, r: 4 }}
-            />
-            <Line 
-              type="monotone" 
-              dataKey="TikTok" 
-              stroke={COLORS.TikTok} 
-              strokeWidth={2}
-              dot={{ fill: COLORS.TikTok, strokeWidth: 2, r: 4 }}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-        <p className="text-sm text-gray-600 mt-2">
-          💡 <strong>Insight:</strong> TikTok had highest single-day spend (RM 1,875) on viral day Aug 2
-        </p>
-      </div>
-
-      {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-        <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg p-6 text-center">
-          <h4 className="text-lg font-semibold mb-2">🏆 Volume Winner</h4>
-          <p className="text-2xl font-bold">Facebook</p>
-          <p className="text-sm opacity-90">5.6M total reach</p>
+        
+        <!-- Platform Comparison Charts -->
+        <div class="comparison-grid">
+            <!-- Total Reach Chart -->
+            <div class="section">
+                <h3 class="section-title">Total Reach Comparison</h3>
+                <div class="chart-container">
+                    <canvas id="reachComparisonChart"></canvas>
+                </div>
+                <p class="chart-description">
+                    📘 Facebook: 5.6M reach | 🎵 TikTok: 3.9M reach
+                </p>
+            </div>
+            
+            <!-- Total Cost Chart -->
+            <div class="section">
+                <h3 class="section-title">Total Cost Comparison</h3>
+                <div class="chart-container">
+                    <canvas id="costComparisonChart"></canvas>
+                </div>
+                <p class="chart-description">
+                    💰 Facebook: RM 7,550 | TikTok: RM 5,950
+                </p>
+            </div>
         </div>
-        <div className="bg-gradient-to-r from-pink-500 to-red-500 text-white rounded-lg p-6 text-center">
-          <h4 className="text-lg font-semibold mb-2">⚡ Efficiency Winner</h4>
-          <p className="text-2xl font-bold">TikTok</p>
-          <p className="text-sm opacity-90">RM 0.96 CPM</p>
+        
+        <!-- CPM Comparison -->
+        <div class="section">
+            <h3 class="section-title">CPM Efficiency Comparison</h3>
+            <div class="chart-container">
+                <canvas id="cpmChart"></canvas>
+            </div>
+            <p class="chart-description">
+                🎯 <strong>Winner:</strong> TikTok with RM 0.96 CPM vs Facebook RM 1.34 CPM (28% better)
+            </p>
         </div>
-        <div className="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg p-6 text-center">
-          <h4 className="text-lg font-semibold mb-2">🚀 Viral Champion</h4>
-          <p className="text-2xl font-bold">TikTok</p>
-          <p className="text-sm opacity-90">1.4M single day</p>
+        
+        <!-- Budget Allocation and Key Metrics -->
+        <div class="budget-metrics-grid">
+            <!-- Budget Allocation -->
+            <div class="section">
+                <h3 class="section-title">Budget Allocation</h3>
+                <div class="chart-container">
+                    <canvas id="budgetChart"></canvas>
+                </div>
+                <div style="text-align: center; font-size: 0.875rem; color: rgb(107, 114, 126); margin-top: 8px;">
+                    <p><strong>Total Budget:</strong> RM 13,500</p>
+                    <p>Facebook: 56% | TikTok: 44%</p>
+                </div>
+            </div>
+            
+            <!-- Key Metrics -->
+            <div class="section">
+                <h3 class="section-title">Key Performance Metrics</h3>
+                <div class="metrics-list">
+                    <div class="metric-item blue">
+                        <span class="metric-item-label">Total Reach</span>
+                        <span class="metric-item-value">9.47M</span>
+                    </div>
+                    <div class="metric-item green">
+                        <span class="metric-item-label">Total Impressions</span>
+                        <span class="metric-item-value">11.80M</span>
+                    </div>
+                    <div class="metric-item purple">
+                        <span class="metric-item-label">Average CPM</span>
+                        <span class="metric-item-value">RM 1.14</span>
+                    </div>
+                    <div class="metric-item orange">
+                        <span class="metric-item-label">Cost per Reach</span>
+                        <span class="metric-item-value">RM 0.00143</span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+        
+        <!-- Daily Cost Trends -->
+        <div class="section">
+            <h3 class="section-title">Daily Cost Trends</h3>
+            <div class="chart-container">
+                <canvas id="costTrendChart"></canvas>
+            </div>
+            <p class="chart-description">
+                💡 <strong>Insight:</strong> TikTok had highest single-day spend (RM 1,875) on viral day Aug 2
+            </p>
+        </div>
+        
+        <!-- Summary Cards -->
+        <div class="summary-grid">
+            <div class="summary-card volume-card">
+                <h4>🏆 Volume Winner</h4>
+                <p class="card-title">Facebook</p>
+                <p class="card-subtitle">5.6M total reach</p>
+            </div>
+            <div class="summary-card efficiency-card">
+                <h4>⚡ Efficiency Winner</h4>
+                <p class="card-title">TikTok</p>
+                <p class="card-subtitle">RM 0.96 CPM</p>
+            </div>
+            <div class="summary-card viral-card">
+                <h4>🚀 Viral Champion</h4>
+                <p class="card-title">TikTok</p>
+                <p class="card-subtitle">1.4M single day</p>
+            </div>
+        </div>
     </div>
-  );
-};
-
-export default FacebookTikTokDashboard;
+    
+    <script>
+        // Chart.js default configuration
+        Chart.defaults.responsive = true;
+        Chart.defaults.maintainAspectRatio = false;
+        
+        // Data
+        const dailyData = {
+            labels: ['23 Jul', '24 Jul', '25 Jul', '26 Jul', '27 Jul', '28 Jul', '29 Jul', '30 Jul', '31 Jul', '1 Aug', '2 Aug', '3 Aug'],
+            facebook: [182342, 372287, 638368, 751153, 379206, 238910, 234929, 316108, 309014, 1306272, 1309371, 465139],
+            tiktok: [189718, 169518, 317687, 276789, 134885, 229243, 166731, 242475, 179026, 110470, 1401876, 346574],
+            fbCost: [628, 621, 854, 1004, 507, 319, 314, 423, 414, 1749, 1754, 623],
+            tiktokCost: [222, 207, 500, 542, 168, 351, 297, 408, 286, 70, 1875, 903]
+        };
+        
+        const platformData = [
+            { platform: 'Facebook', reach: 5602099, cost: 7550, impressions: 5631558, cpm: 1.34 },
+            { platform: 'TikTok', reach: 3864992, cost: 5950, impressions: 6171429, cpm: 0.96 }
+        ];
+        
+        // Colors
+        const colors = {
+            facebook: '#1877f2',
+            tiktok: '#fe2c55',
+            facebookLight: 'rgba(24, 119, 242, 0.1)',
+            tiktokLight: 'rgba(254, 44, 85, 0.1)'
+        };
+        
+        // Daily Reach Chart
+        const reachCtx = document.getElementById('reachChart').getContext('2d');
+        new Chart(reachCtx, {
+            type: 'line',
+            data: {
+                labels: dailyData.labels,
+                datasets: [{
+                    label: 'Facebook',
+                    data: dailyData.facebook,
+                    borderColor: colors.facebook,
+                    backgroundColor: colors.facebookLight,
+                    borderWidth: 3,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    tension: 0.4
+                }, {
+                    label: 'TikTok',
+                    data: dailyData.tiktok,
+                    borderColor: colors.tiktok,
+                    backgroundColor: colors.tiktokLight,
+                    borderWidth: 3,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + context.parsed.y.toLocaleString() + ' reach';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return (value / 1000) + 'K';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Reach Comparison Chart
+        const reachCompCtx = document.getElementById('reachComparisonChart').getContext('2d');
+        new Chart(reachCompCtx, {
+            type: 'bar',
+            data: {
+                labels: platformData.map(d => d.platform),
+                datasets: [{
+                    label: 'Reach',
+                    data: platformData.map(d => d.reach),
+                    backgroundColor: [colors.facebook, colors.tiktok],
+                    borderColor: [colors.facebook, colors.tiktok],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'Reach: ' + context.parsed.y.toLocaleString();
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return (value / 1000000).toFixed(1) + 'M';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Cost Comparison Chart
+        const costCompCtx = document.getElementById('costComparisonChart').getContext('2d');
+        new Chart(costCompCtx, {
+            type: 'bar',
+            data: {
+                labels: platformData.map(d => d.platform),
+                datasets: [{
+                    label: 'Cost',
+                    data: platformData.map(d => d.cost),
+                    backgroundColor: [colors.facebook, colors.tiktok],
+                    borderColor: [colors.facebook, colors.tiktok],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'Cost: RM ' + context.parsed.y.toLocaleString();
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return 'RM ' + value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // CPM Chart
+        const cpmCtx = document.getElementById('cpmChart').getContext('2d');
+        new Chart(cpmCtx, {
+            type: 'bar',
+            data: {
+                labels: platformData.map(d => d.platform),
+                datasets: [{
+                    label: 'CPM',
+                    data: platformData.map(d => d.cpm),
+                    backgroundColor: [colors.facebook, colors.tiktok],
+                    borderColor: [colors.facebook, colors.tiktok],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'CPM: RM ' + context.parsed.x.toFixed(2);
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return 'RM ' + value.toFixed(2);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Budget Chart
+        const budgetCtx = document.getElementById('budgetChart').getContext('2d');
+        new Chart(budgetCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Facebook', 'TikTok'],
+                datasets: [{
+                    data: [7550, 5950],
+                    backgroundColor: [colors.facebook, colors.tiktok],
+                    borderColor: [colors.facebook, colors.tiktok],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = ((context.parsed * 100) / total).toFixed(0);
+                                return context.label + ': RM ' + context.parsed.toLocaleString() + ' (' + percentage + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Cost Trend Chart
+        const costTrendCtx = document.getElementById('costTrendChart').getContext('2d');
+        new Chart(costTrendCtx, {
+            type: 'line',
+            data: {
+                labels: dailyData.labels,
+                datasets: [{
+                    label: 'Facebook',
+                    data: dailyData.fbCost,
+                    borderColor: colors.facebook,
+                    backgroundColor: colors.facebookLight,
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    tension: 0.4
+                }, {
+                    label: 'TikTok',
+                    data: dailyData.tiktokCost,
+                    borderColor: colors.tiktok,
+                    backgroundColor: colors.tiktokLight,
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': RM ' + context.parsed.y.toLocaleString();
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return 'RM ' + value;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
